@@ -1,0 +1,956 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="An adaptable and lightweight sealed API library designed for Kotlin and Android, specializing in efficient Retrofit response modeling and exception handling.">
+      
+      
+        <meta name="author" content="Jaewoong (skydoves)">
+      
+      
+        <link rel="canonical" href="https://github.com/skydoves/sandwich/apiresponse/">
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../retrofit/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>ApiResponse - Sandwich</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.a40c8224.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-1SBY14Q79E"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-1SBY14Q79E",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-1SBY14Q79E",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="amber" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#apiresponse" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Sandwich" class="md-header__button md-logo" aria-label="Sandwich" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2c5.5 0 10 3.36 10 7.5 0 1.69-.74 3.25-2 4.5v8H4v-8c-1.26-1.25-2-2.81-2-4.5C2 5.36 6.5 2 12 2M8 18h4v-4H8z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Sandwich
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              ApiResponse
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/skydoves/sandwich" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    sandwich
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Sandwich" class="md-nav__button md-logo" aria-label="Sandwich" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2c5.5 0 10 3.36 10 7.5 0 1.69-.74 3.25-2 4.5v8H4v-8c-1.26-1.25-2-2.81-2-4.5C2 5.36 6.5 2 12 2M8 18h4v-4H8z"/></svg>
+
+    </a>
+    Sandwich
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/skydoves/sandwich" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    sandwich
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    ApiResponse
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    ApiResponse
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#apiresponsesuccess" class="md-nav__link">
+    <span class="md-ellipsis">
+      ApiResponse.Success
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#apiresponsefailureexception" class="md-nav__link">
+    <span class="md-ellipsis">
+      ApiResponse.Failure.Exception
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#apiresponsefailureerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      ApiResponse.Failure.Error
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creation-of-apiresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creation of ApiResponse
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#apiresponse-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      ApiResponse Extensions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#apiresponse-extensions-with-coroutines" class="md-nav__link">
+    <span class="md-ellipsis">
+      ApiResponse Extensions With Coroutines
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Flow
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../retrofit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Retrofit
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ktor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ktor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ktorfit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ktorfit
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../retrieve/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Retrieve
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mapper/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mapper
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sequential/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sequential
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../retry/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Retry
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../operator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Operator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../merge/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Merge
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../global/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Global Handling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../empty-body/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Empty Body
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../migration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Migration Guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sponsor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sponsor 🩷
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#apiresponsesuccess" class="md-nav__link">
+    <span class="md-ellipsis">
+      ApiResponse.Success
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#apiresponsefailureexception" class="md-nav__link">
+    <span class="md-ellipsis">
+      ApiResponse.Failure.Exception
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#apiresponsefailureerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      ApiResponse.Failure.Error
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creation-of-apiresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creation of ApiResponse
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#apiresponse-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      ApiResponse Extensions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#apiresponse-extensions-with-coroutines" class="md-nav__link">
+    <span class="md-ellipsis">
+      ApiResponse Extensions With Coroutines
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Flow
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="apiresponse">ApiResponse<a class="headerlink" href="#apiresponse" title="Permanent link">&para;</a></h1>
+<p><code>ApiResponse</code> serves as an interface designed to create consistent responses from API or I/O calls, such as network, database, or whatever. It offers convenient extensions to manage your payloads, encompassing both body data and exceptional scenarios. <code>ApiResponse</code> encompasses three distinct types: <strong>Success</strong>, <strong>Failure.Error</strong>, and <strong>Failure.Exception</strong>.</p>
+<h3 id="apiresponsesuccess">ApiResponse.Success<a class="headerlink" href="#apiresponsesuccess" title="Permanent link">&para;</a></h3>
+<p>This represents a successful response from API or I/O tasks. You can create an instance of [ApiResponse.Success] by giving the generic type and data.   </p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">apiResponse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ApiResponse</span><span class="p">.</span><span class="na">Success</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myData</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">apiResponse</span><span class="p">.</span><span class="na">data</span>
+</code></pre></div>
+<p>Depending on your model designs, you can also utilize <code>tag</code> property. The <code>tag</code> is an additional value that can be held to distinguish the origin of the [data] or to facilitate post-processing of successful data.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">apiResponse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ApiResponse</span><span class="p">.</span><span class="na">Success</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myData</span><span class="p">,</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myTag</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">tag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">apiResponse</span><span class="p">.</span><span class="na">tag</span>
+</code></pre></div>
+<h3 id="apiresponsefailureexception">ApiResponse.Failure.Exception<a class="headerlink" href="#apiresponsefailureexception" title="Permanent link">&para;</a></h3>
+<p>This signals a failed tasks captured by unexpected exceptions during API request creation or response processing on the client side, such as a network connection failure. You can obtain exception details from the <code>ApiResponse.Failure.Exception</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">apiResponse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ApiResponse</span><span class="p">.</span><span class="na">Failure</span><span class="p">.</span><span class="na">Exception</span><span class="p">(</span><span class="n">exception</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HttpTimeoutException</span><span class="p">())</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">exception</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">apiResponse</span><span class="p">.</span><span class="na">exception</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">apiResponse</span><span class="p">.</span><span class="na">message</span>
+</code></pre></div>
+<h3 id="apiresponsefailureerror">ApiResponse.Failure.Error<a class="headerlink" href="#apiresponsefailureerror" title="Permanent link">&para;</a></h3>
+<p>This denotes a failed API or I/O request, typically due to bad requests or internal server errors. You can additionally put an error payload that can contain detailed error information.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">apiResponse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ApiResponse</span><span class="p">.</span><span class="na">Failure</span><span class="p">.</span><span class="na">Error</span><span class="p">(</span><span class="n">payload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">errorBody</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">payload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">apiResponse</span><span class="p">.</span><span class="na">payload</span>
+</code></pre></div>
+<p>You can also define custom error responses that extend <code>ApiResponse.Failure.Error</code> or <code>ApiResponse.Failure.Exception</code>, as demonstrated in the example below:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">data</span><span class="w"> </span><span class="kd">object</span><span class="w"> </span><span class="nc">LimitedRequest</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ApiResponse</span><span class="p">.</span><span class="na">Failure</span><span class="p">.</span><span class="na">Error</span><span class="p">(</span>
+<span class="w">  </span><span class="n">payload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;your request is limited&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="kd">data</span><span class="w"> </span><span class="kd">object</span><span class="w"> </span><span class="nc">WrongArgument</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ApiResponse</span><span class="p">.</span><span class="na">Failure</span><span class="p">.</span><span class="na">Error</span><span class="p">(</span>
+<span class="w">  </span><span class="n">payload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;wrong argument&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="kd">data</span><span class="w"> </span><span class="kd">object</span><span class="w"> </span><span class="nc">HttpException</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ApiResponse</span><span class="p">.</span><span class="na">Failure</span><span class="p">.</span><span class="na">Exception</span><span class="p">(</span>
+<span class="w">  </span><span class="n">throwable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RuntimeException</span><span class="p">(</span><span class="s">&quot;http exception&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>The custom error response is very useful when you want to explicitly define and handle error responses, especially when working with map extensions.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">apiResponse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">service</span><span class="p">.</span><span class="na">fetchMovieList</span><span class="p">()</span>
+<span class="n">apiResponse</span><span class="p">.</span><span class="na">onSuccess</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// ..</span>
+<span class="p">}.</span><span class="na">flatMap</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// if the ApiResponse is Failure.Error and contains error body, then maps it to a custom error response.  </span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">this</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">ApiResponse</span><span class="p">.</span><span class="na">Failure</span><span class="p">.</span><span class="na">Error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">errorBody</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">payload</span><span class="w"> </span><span class="k">as?</span><span class="w"> </span><span class="n">Response</span><span class="p">)</span><span class="o">?.</span><span class="na">body</span><span class="o">?.</span><span class="na">string</span><span class="p">()</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">errorBody</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="kd">val</span><span class="w"> </span><span class="nv">errorMessage</span><span class="p">:</span><span class="w"> </span><span class="n">ErrorMessage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Json</span><span class="p">.</span><span class="na">decodeFromString</span><span class="p">(</span><span class="n">errorBody</span><span class="p">)</span>
+<span class="w">      </span><span class="k">when</span><span class="w"> </span><span class="p">(</span><span class="n">errorMessage</span><span class="p">.</span><span class="na">code</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="m">10000</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">LimitedRequest</span>
+<span class="w">        </span><span class="m">10001</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">WrongArgument</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">this</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Then you can handle the errors based on your custom message in other layers:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">apiResponse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">repository</span><span class="p">.</span><span class="na">fetchMovieList</span><span class="p">()</span>
+<span class="n">apiResponse</span><span class="p">.</span><span class="na">onError</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">when</span><span class="w"> </span><span class="p">(</span><span class="k">this</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">LimitedRequest</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="c1">// update your UI</span>
+<span class="w">    </span><span class="n">WrongArgument</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="c1">// update your UI</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>You might not want to use the <code>flatMap</code> extension for all API requests. If you aim to standardize custom error types across all API requests, you can explore the <a href="https://skydoves.github.io/sandwich/mapper/#global-failure-mapper">Global Failure Mapper</a>.</p>
+<h3 id="creation-of-apiresponse">Creation of ApiResponse<a class="headerlink" href="#creation-of-apiresponse" title="Permanent link">&para;</a></h3>
+<p>Sandwich provides convenient ways to create an <code>ApiResponse</code> using functions such as <code>ApiResponse.of</code> or <code>apiResponseOf</code>, as shown below:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">apiResponse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ApiResponse</span><span class="p">.</span><span class="na">of</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">service</span><span class="p">.</span><span class="na">request</span><span class="p">()</span><span class="w"> </span><span class="p">}</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">apiResponse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">apiResponseOf</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">service</span><span class="p">.</span><span class="na">request</span><span class="p">()</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p>If you need to run suspend functions inside the lambda, you can use <code>ApiResponse.suspendOf</code> or <code>suspendApiResponseOf</code> instead:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">apiResponse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ApiResponse</span><span class="p">.</span><span class="na">suspendOf</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">service</span><span class="p">.</span><span class="na">request</span><span class="p">()</span><span class="w"> </span><span class="p">}</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">apiResponse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">suspendApiResponseOf</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">service</span><span class="p">.</span><span class="na">request</span><span class="p">()</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you intend to utilize the global operator or global ApiResponse mapper in Sandwich, you should create an <code>ApiResponse</code> using the <code>ApiResponse.of</code> method to ensure the application of these global functions.</p>
+</div>
+<h2 id="apiresponse-extensions">ApiResponse Extensions<a class="headerlink" href="#apiresponse-extensions" title="Permanent link">&para;</a></h2>
+<p>You can effectively handling <code>ApiResponse</code> using the following extensions:</p>
+<ul>
+<li><strong>onSuccess</strong>: Executes when the <code>ApiResponse</code> is of type <code>ApiResponse.Success</code>. Within this scope, you can directly access the body data.</li>
+<li><strong>onError</strong>: Executes when the <code>ApiResponse</code> is of type <code>ApiResponse.Failure.Error</code>. Here, you can access the <code>messareOrNull</code> and <code>payload</code> here.</li>
+<li><strong>onException</strong>: Executes when the <code>ApiResponse</code> is of type <code>ApiResponse.Failure.Exception</code>. You can access the <code>messareOrNull</code> and <code>exception</code> here.</li>
+<li><strong>onFailure</strong>: Executes when the <code>ApiResponse</code> is either <code>ApiResponse.Failure.Error</code> or <code>ApiResponse.Failure.Exception</code>. You can access the <code>messareOrNull</code> here.</li>
+</ul>
+<p>Each scope operates according to its corresponding <code>ApiResponse</code> type:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">disneyService</span><span class="p">.</span><span class="na">fetchDisneyPosterList</span><span class="p">()</span>
+<span class="n">response</span><span class="p">.</span><span class="na">onSuccess</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// this scope will be executed if the request successful.</span>
+<span class="w">    </span><span class="c1">// handle the success case</span>
+<span class="w">  </span><span class="p">}.</span><span class="na">onError</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// this scope will be executed when the request failed with errors.</span>
+<span class="w">    </span><span class="c1">// handle the error case</span>
+<span class="w">  </span><span class="p">}.</span><span class="na">onException</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="c1">// this scope will be executed when the request failed with exceptions.</span>
+<span class="w">   </span><span class="c1">// handle the exception case</span>
+<span class="w">  </span><span class="p">}</span>
+</code></pre></div>
+<p>If you don't want to specify each failure case, you can simplify it by using the <code>onFailure</code> extension:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">disneyService</span><span class="p">.</span><span class="na">fetchDisneyPosterList</span><span class="p">()</span>
+<span class="n">response</span><span class="p">.</span><span class="na">onSuccess</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// this scope will be executed if the request successful.</span>
+<span class="w">    </span><span class="c1">// handle the success case</span>
+<span class="w">  </span><span class="p">}.</span><span class="na">onFailure</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="p">}</span>
+</code></pre></div>
+<h2 id="apiresponse-extensions-with-coroutines">ApiResponse Extensions With Coroutines<a class="headerlink" href="#apiresponse-extensions-with-coroutines" title="Permanent link">&para;</a></h2>
+<p>With the <code>ApiResponse</code> type, you can leverage <a href="https://kotlinlang.org/docs/coroutines-overview.html">Coroutines</a> extensions to handle responses seamlessly within coroutine scopes. These extensions provide a convenient way to process different response types. Here's how you can use them:</p>
+<ul>
+<li>
+<p><strong>suspendOnSuccess</strong>: This extension runs if the <code>ApiResponse</code> is of type <code>ApiResponse.Success</code>. You can access the body data directly within this scope.</p>
+</li>
+<li>
+<p><strong>suspendOnError</strong>: This extension is executed if the <code>ApiResponse</code> is of type <code>ApiResponse.Failure.Error</code>. You can access the error message and the error body in this scope.</p>
+</li>
+<li>
+<p><strong>suspendOnException</strong>: If the <code>ApiResponse</code> is of type <code>ApiResponse.Failure.Exception</code>, this extension is triggered. You can access the exception message in this scope.</p>
+</li>
+<li>
+<p><strong>suspendOnFailure</strong>: This extension is executed if the <code>ApiResponse</code> is either <code>ApiResponse.Failure.Error</code> or <code>ApiResponse.Failure.Exception</code>. You can access the error message in this scope.</p>
+</li>
+</ul>
+<p>Each extension scope operates based on the corresponding <code>ApiResponse</code> type. By utilizing these extensions, you can handle responses effectively within different coroutine contexts.</p>
+<div class="highlight"><pre><span></span><code><span class="n">flow</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="nv">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">disneyService</span><span class="p">.</span><span class="na">fetchDisneyPosterList</span><span class="p">()</span>
+<span class="w">  </span><span class="n">response</span><span class="p">.</span><span class="na">suspendOnSuccess</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">posterDao</span><span class="p">.</span><span class="na">insertPosterList</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="w"> </span><span class="c1">// insertPosterList(data) is a suspend function.</span>
+<span class="w">    </span><span class="n">emit</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="w">  </span><span class="p">}.</span><span class="na">suspendOnError</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// handles error cases</span>
+<span class="w">  </span><span class="p">}.</span><span class="na">suspendOnException</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// handles exceptional cases</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}.</span><span class="na">flowOn</span><span class="p">(</span><span class="n">Dispatchers</span><span class="p">.</span><span class="na">IO</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="flow">Flow<a class="headerlink" href="#flow" title="Permanent link">&para;</a></h2>
+<p>Sandwich offers some useful extensions to transform your <code>ApiResponse</code> into a <a href="https://kotlinlang.org/docs/flow.html">Flow</a> by using the <code>toFlow</code> extension:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">flow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">disneyService</span><span class="p">.</span><span class="na">fetchDisneyPosterList</span><span class="p">()</span>
+<span class="w">  </span><span class="p">.</span><span class="na">onError</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// handles error cases when the API request gets an error response.</span>
+<span class="w">  </span><span class="p">}.</span><span class="na">onException</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// handles exceptional cases when the API request gets an exception response.</span>
+<span class="w">  </span><span class="p">}.</span><span class="na">toFlow</span><span class="p">()</span><span class="w"> </span><span class="c1">// returns a coroutines flow</span>
+<span class="w">  </span><span class="p">.</span><span class="na">flowOn</span><span class="p">(</span><span class="n">Dispatchers</span><span class="p">.</span><span class="na">IO</span><span class="p">)</span>
+</code></pre></div>
+<p>If you want to transform the original data and work with a <code>Flow</code> containing the transformed data, you can do so as shown in the examples below:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pokedexClient</span><span class="p">.</span><span class="na">fetchPokemonList</span><span class="p">(</span><span class="n">page</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">page</span><span class="p">)</span>
+<span class="n">response</span><span class="p">.</span><span class="na">toFlow</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">pokemons</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">  </span><span class="n">pokemons</span><span class="p">.</span><span class="na">forEach</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">pokemon</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">pokemon</span><span class="p">.</span><span class="na">page</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">page</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="n">pokemonDao</span><span class="p">.</span><span class="na">insertPokemonList</span><span class="p">(</span><span class="n">pokemons</span><span class="p">)</span>
+<span class="w">  </span><span class="n">pokemonDao</span><span class="p">.</span><span class="na">getAllPokemonList</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+<span class="p">}.</span><span class="na">flowOn</span><span class="p">(</span><span class="n">Dispatchers</span><span class="p">.</span><span class="na">IO</span><span class="p">)</span>
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.tabs.link", "content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+    
+  </body>
+</html>

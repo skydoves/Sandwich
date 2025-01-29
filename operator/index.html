@@ -1,0 +1,1045 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="An adaptable and lightweight sealed API library designed for Kotlin and Android, specializing in efficient Retrofit response modeling and exception handling.">
+      
+      
+        <meta name="author" content="Jaewoong (skydoves)">
+      
+      
+        <link rel="canonical" href="https://github.com/skydoves/sandwich/operator/">
+      
+      
+        <link rel="prev" href="../retry/">
+      
+      
+        <link rel="next" href="../merge/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>Operator - Sandwich</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.a40c8224.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-1SBY14Q79E"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-1SBY14Q79E",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-1SBY14Q79E",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="amber" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#operator" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Sandwich" class="md-header__button md-logo" aria-label="Sandwich" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2c5.5 0 10 3.36 10 7.5 0 1.69-.74 3.25-2 4.5v8H4v-8c-1.26-1.25-2-2.81-2-4.5C2 5.36 6.5 2 12 2M8 18h4v-4H8z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Sandwich
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Operator
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/skydoves/sandwich" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    sandwich
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Sandwich" class="md-nav__button md-logo" aria-label="Sandwich" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2c5.5 0 10 3.36 10 7.5 0 1.69-.74 3.25-2 4.5v8H4v-8c-1.26-1.25-2-2.81-2-4.5C2 5.36 6.5 2 12 2M8 18h4v-4H8z"/></svg>
+
+    </a>
+    Sandwich
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/skydoves/sandwich" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    sandwich
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apiresponse/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ApiResponse
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../retrofit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Retrofit
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ktor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ktor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ktorfit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ktorfit
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../retrieve/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Retrieve
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mapper/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mapper
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sequential/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sequential
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../retry/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Retry
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Operator
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Operator
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#operator-with-coroutines" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operator With Coroutines
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#global-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Global Operator
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Global Operator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initialize-global-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Initialize Global Operator
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implement-your-global-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implement Your Global Operator
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#global-operator-with-hilt-and-app-startup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Global Operator With Hilt and App Startup
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Global Operator With Hilt and App Startup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-implement-an-entry-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Implement an Entry Point
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-provide-global-operator-dependency" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Provide Global Operator Dependency
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-implement-app-startup-initializer" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Implement App Startup Initializer
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../merge/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Merge
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../global/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Global Handling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../empty-body/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Empty Body
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../migration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Migration Guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sponsor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sponsor 🩷
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#operator-with-coroutines" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operator With Coroutines
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#global-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Global Operator
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Global Operator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initialize-global-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Initialize Global Operator
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implement-your-global-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implement Your Global Operator
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#global-operator-with-hilt-and-app-startup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Global Operator With Hilt and App Startup
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Global Operator With Hilt and App Startup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-implement-an-entry-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Implement an Entry Point
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-provide-global-operator-dependency" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Provide Global Operator Dependency
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-implement-app-startup-initializer" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Implement App Startup Initializer
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="operator">Operator<a class="headerlink" href="#operator" title="Permanent link">&para;</a></h1>
+<p>The <strong>Operator</strong> feature stands out as one of the most powerful capabilities provided by Sandwich. It empowers you to establish well-defined, preconfigured processors for your <code>ApiResponse</code> instances. This enables you to encapsulate and reuse a consistent sequence of procedures across your API requests.</p>
+<p>You can streamline the handling of <code>onSuccess</code>, <code>onError</code>, and <code>onException</code> scenarios by utilizing the <code>operator</code> extension alongside the <code>ApiResponseOperator</code>. <strong>Operator</strong> proves particularly valuable when you're aiming for global handling of <code>ApiResponse</code> instances and wish to minimize boilerplate code within your <code>ViewModel</code> and <code>Repository</code> classes. Here are a few illustrative examples:</p>
+<div class="highlight"><pre><span></span><code><span class="cm">/** A common response operator for handling [ApiResponse]s regardless of its type. */</span>
+<span class="kd">class</span><span class="w"> </span><span class="nc">CommonResponseOperator</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span>
+<span class="w">  </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">success</span><span class="p">:</span><span class="w"> </span><span class="n">suspend</span><span class="w"> </span><span class="p">(</span><span class="n">ApiResponse</span><span class="p">.</span><span class="na">Success</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span>
+<span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ApiResponseOperator</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="c1">// handles error cases when the API request gets an error response.</span>
+<span class="w">  </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onSuccess</span><span class="p">(</span><span class="n">apiResponse</span><span class="p">:</span><span class="w"> </span><span class="n">ApiResponse</span><span class="p">.</span><span class="na">Success</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">success</span><span class="p">(</span><span class="n">apiResponse</span><span class="p">)</span>
+
+<span class="w">  </span><span class="c1">// handles error cases depending on the status code.</span>
+<span class="w">  </span><span class="c1">// e.g., internal server error.</span>
+<span class="w">  </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onError</span><span class="p">(</span><span class="n">apiResponse</span><span class="p">:</span><span class="w"> </span><span class="n">ApiResponse</span><span class="p">.</span><span class="na">Failure</span><span class="p">.</span><span class="na">Error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">apiResponse</span><span class="p">.</span><span class="na">run</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">Timber</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="n">message</span><span class="p">())</span>
+
+<span class="w">      </span><span class="c1">// map the ApiResponse.Failure.Error to a customized error model using the mapper.</span>
+<span class="w">      </span><span class="n">map</span><span class="p">(</span><span class="n">ErrorEnvelopeMapper</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Timber</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="s">&quot;[Code: </span><span class="si">$</span><span class="n">code</span><span class="s">]: </span><span class="si">$</span><span class="n">message</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="c1">// handles exceptional cases when the API request gets an exception response.</span>
+<span class="w">  </span><span class="c1">// e.g., network connection error, timeout.</span>
+<span class="w">  </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onException</span><span class="p">(</span><span class="n">apiResponse</span><span class="p">:</span><span class="w"> </span><span class="n">ApiResponse</span><span class="p">.</span><span class="na">Failure</span><span class="p">.</span><span class="na">Exception</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">apiResponse</span><span class="p">.</span><span class="na">run</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">Timber</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="n">message</span><span class="p">())</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">disneyService</span><span class="p">.</span><span class="na">fetchDisneyPosterList</span><span class="p">().</span><span class="na">operator</span><span class="p">(</span>
+<span class="w">    </span><span class="n">CommonResponseOperator</span><span class="p">(</span>
+<span class="w">      </span><span class="n">success</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">emit</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="w">        </span><span class="n">Timber</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="s">&quot;success data: </span><span class="si">$</span><span class="n">data</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">     </span><span class="p">}</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>By embracing the <strong>Operator</strong> pattern, you can significantly simplify the management of various <code>ApiResponse</code> outcomes and promote cleaner, more maintainable code within your application's architecture.</p>
+<h2 id="operator-with-coroutines">Operator With Coroutines<a class="headerlink" href="#operator-with-coroutines" title="Permanent link">&para;</a></h2>
+<p>For scenarios where you aim to delegate and operate a suspension lambda using the operator pattern, the <code>suspendOperator</code> extension and the <code>ApiResponseSuspendOperator</code> class come into play. These tools facilitate the process, as showcased in the examples below:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nc">CommonResponseOperator</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span>
+<span class="w">  </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">success</span><span class="p">:</span><span class="w"> </span><span class="n">suspend</span><span class="w"> </span><span class="p">(</span><span class="n">ApiResponse</span><span class="p">.</span><span class="na">Success</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span>
+<span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ApiResponseSuspendOperator</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="c1">// handles the success case when the API request gets a successful response.</span>
+<span class="w">  </span><span class="kd">override</span><span class="w"> </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onSuccess</span><span class="p">(</span><span class="n">apiResponse</span><span class="p">:</span><span class="w"> </span><span class="n">ApiResponse</span><span class="p">.</span><span class="na">Success</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">success</span><span class="p">(</span><span class="n">apiResponse</span><span class="p">)</span>
+
+<span class="w">  </span><span class="c1">// ... //</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>You can use suspend functions like <code>emit</code> in the <code>success</code> scope.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">disneyService</span><span class="p">.</span><span class="na">fetchDisneyPosterList</span><span class="p">().</span><span class="na">suspendOperator</span><span class="p">(</span>
+<span class="w">    </span><span class="n">CommonResponseOperator</span><span class="p">(</span>
+<span class="w">      </span><span class="n">success</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">emit</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="w">        </span><span class="n">Timber</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="s">&quot;success data: </span><span class="si">$</span><span class="n">data</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Incorporating the <strong>suspendOperator</strong> extension alongside the <strong>ApiResponseSuspendOperator</strong> class allows you to efficiently manage suspension lambdas in conjunction with the operator pattern, promoting a more concise and maintainable approach within your codebase.</p>
+<h2 id="global-operator">Global Operator<a class="headerlink" href="#global-operator" title="Permanent link">&para;</a></h2>
+<p>The global operator is undoubtedly a robust feature offered by Sandwich. It empowers you to operate on operators globally across all <code>ApiResponse</code> instances in your application by employing the <code>SandwichInitializer</code>. This way, you can avoid the necessity of creating operator instances for every API call or employing dependency injection for common operations. The following examples illustrate how to use a global operator to handle both <code>ApiResponse.Failure.Error</code> and <code>ApiResponse.Failure.Exception</code> scenarios. You can leverage the global operator to refresh your user token or implement any other additional processes necessary for specific API requests within your application. The example below demonstrates how you can automatically check and refresh the user token depending on the response status using Sandwich's global operator:</p>
+<h3 id="initialize-global-operator">Initialize Global Operator<a class="headerlink" href="#initialize-global-operator" title="Permanent link">&para;</a></h3>
+<p>First, it's highly recommended to initialize the global operator in the Application class or using another initialization solution like <a href="https://developer.android.com/topic/libraries/app-startup">App Startup</a>. This ensures that the global operator is set up before any API requests are made.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nc">SandwichDemoApp</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Application</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onCreate</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">.</span><span class="na">onCreate</span><span class="p">()</span>
+
+<span class="w">    </span><span class="c1">// We will handle only the error and exceptional cases,</span>
+<span class="w">    </span><span class="c1">// so we don&#39;t need to mind the generic type of the operator.</span>
+<span class="w">    </span><span class="n">SandwichInitializer</span><span class="p">.</span><span class="na">sandwichOperators</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span><span class="n">TokenRefreshGlobalOperator</span><span class="o">&lt;</span><span class="kt">Any</span><span class="o">&gt;</span><span class="p">(</span><span class="k">this</span><span class="p">))</span>
+
+<span class="w">    </span><span class="c1">// ... //</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>By configuring the global operator within <code>SandwichInitializer</code>, you enable your application to consistently process and handle various <code>ApiResponse</code> situations. This can include tasks such as managing success cases, handling errors, or dealing with exceptions, all on a global scale.</p>
+<h3 id="implement-your-global-operator">Implement Your Global Operator<a class="headerlink" href="#implement-your-global-operator" title="Permanent link">&para;</a></h3>
+<p>Create your custom <code>GlobalResponseOperator</code> class that extends operators such as <code>ApiResponseSuspendOperator</code> and <code>ApiResponseOperator</code>. This operator will allow you to define common response handling logic that can be applied globally.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nc">TokenRefreshGlobalOperator</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="nd">@Inject</span><span class="w"> </span><span class="k">constructor</span><span class="p">(</span>
+<span class="w">  </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">context</span><span class="p">:</span><span class="w"> </span><span class="n">Context</span><span class="p">,</span>
+<span class="w">  </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">authService</span><span class="p">:</span><span class="w"> </span><span class="n">AuthService</span><span class="p">,</span>
+<span class="w">  </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">userDataStore</span><span class="p">:</span><span class="w"> </span><span class="n">UserDataStore</span><span class="p">,</span>
+<span class="w">  </span><span class="n">coroutineScope</span><span class="p">:</span><span class="w"> </span><span class="n">CoroutineScope</span><span class="p">,</span>
+<span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ApiResponseSuspendOperator</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="kd">private</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">userToken</span><span class="p">:</span><span class="w"> </span><span class="n">UserToken? </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span>
+
+<span class="w">  </span><span class="k">init</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">coroutineScope</span><span class="p">.</span><span class="na">launch</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">userDataStore</span><span class="p">.</span><span class="na">tokenFlow</span><span class="p">.</span><span class="na">collect</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">token</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">        </span><span class="n">userToken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">token</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="kd">override</span><span class="w"> </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onError</span><span class="p">(</span><span class="n">apiResponse</span><span class="p">:</span><span class="w"> </span><span class="n">ApiResponse</span><span class="p">.</span><span class="na">Failure</span><span class="p">.</span><span class="na">Error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// verify whether the current request was previously issued as an authenticated request</span>
+<span class="w">    </span><span class="n">apiResponse</span><span class="p">.</span><span class="na">headers</span><span class="o">[</span><span class="s">&quot;Authorization&quot;</span><span class="o">]</span><span class="w"> </span><span class="o">?:</span><span class="w"> </span><span class="k">return</span>
+
+<span class="w">    </span><span class="c1">// refresh an access token if the error response is Unauthorized or Forbidden</span>
+<span class="w">    </span><span class="k">when</span><span class="w"> </span><span class="p">(</span><span class="n">apiResponse</span><span class="p">.</span><span class="na">statusCode</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">StatusCode</span><span class="p">.</span><span class="na">Unauthorized</span><span class="p">,</span><span class="w"> </span><span class="n">StatusCode</span><span class="p">.</span><span class="na">Forbidden</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">userToken</span><span class="o">?.</span><span class="na">let</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">token</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">          </span><span class="kd">val</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">authService</span><span class="p">.</span><span class="na">refreshToken</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+<span class="w">          </span><span class="n">result</span><span class="p">.</span><span class="na">onSuccessSuspend</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">            </span><span class="n">userDataStore</span><span class="p">.</span><span class="na">updateToken</span><span class="p">(</span>
+<span class="w">              </span><span class="n">UserToken</span><span class="p">(</span>
+<span class="w">                </span><span class="n">accessToken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">.</span><span class="na">accessToken</span><span class="p">,</span>
+<span class="w">                </span><span class="n">refreshToken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">.</span><span class="na">refreshToken</span><span class="p">,</span>
+<span class="w">              </span><span class="p">),</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="n">toast</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="na">string</span><span class="p">.</span><span class="na">toast_refresh_token_succeed</span><span class="p">)</span>
+<span class="w">          </span><span class="p">}.</span><span class="na">onFailureSuspend</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">toast</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="na">string</span><span class="p">.</span><span class="na">toast_refresh_token_failed</span><span class="p">)</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">      </span><span class="k">else</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="kd">override</span><span class="w"> </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onSuccess</span><span class="p">(</span><span class="n">apiResponse</span><span class="p">:</span><span class="w"> </span><span class="n">ApiResponse</span><span class="p">.</span><span class="na">Success</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">Unit</span>
+
+<span class="w">  </span><span class="kd">override</span><span class="w"> </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onException</span><span class="p">(</span><span class="n">apiResponse</span><span class="p">:</span><span class="w"> </span><span class="n">ApiResponse</span><span class="p">.</span><span class="na">Failure</span><span class="p">.</span><span class="na">Exception</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">Unit</span>
+
+<span class="w">  </span><span class="kd">private</span><span class="w"> </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">toast</span><span class="p">(</span><span class="nd">@StringRes</span><span class="w"> </span><span class="n">resource</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">withContext</span><span class="p">(</span><span class="n">Dispatchers</span><span class="p">.</span><span class="na">Main</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Toast</span><span class="p">.</span><span class="na">makeText</span><span class="p">(</span><span class="n">context</span><span class="p">,</span><span class="w"> </span><span class="n">resource</span><span class="p">,</span><span class="w"> </span><span class="n">Toast</span><span class="p">.</span><span class="na">LENGTH_SHORT</span><span class="p">).</span><span class="na">show</span><span class="p">()</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>In this example, the global operator's <code>onError</code> function is used to automatically check for <code>Unauthorized</code> and <code>Forbidden</code> status code (HTTP 401 and 403) in the error response. If an unauthorized error occurs, the user token is refreshed, and the failed request is retried with the updated token using runAndRetry. This way, you can seamlessly manage token expiration and refresh for your API requests.</p>
+<h2 id="global-operator-with-hilt-and-app-startup">Global Operator With Hilt and App Startup<a class="headerlink" href="#global-operator-with-hilt-and-app-startup" title="Permanent link">&para;</a></h2>
+<p>If you want to initialize the global operator by using with <a href="https://dagger.dev/hilt/">Hilt</a> and <a href="https://developer.android.com/topic/libraries/app-startup">App Startup</a>, you can follow the instructions below.</p>
+<h3 id="1-implement-an-entry-point">1. Implement an Entry Point<a class="headerlink" href="#1-implement-an-entry-point" title="Permanent link">&para;</a></h3>
+<p>First, you should implement an entry point for injecting the global operator into an App Startup initializer.</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@EntryPoint</span>
+<span class="nd">@InstallIn</span><span class="p">(</span><span class="n">SingletonComponent</span><span class="o">::</span><span class="n">class</span><span class="p">)</span>
+<span class="kd">interface</span><span class="w"> </span><span class="nc">NetworkEntryPoint</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="kd">fun</span><span class="w"> </span><span class="nf">inject</span><span class="p">(</span><span class="n">networkInitializer</span><span class="p">:</span><span class="w"> </span><span class="n">NetworkInitializer</span><span class="p">)</span>
+
+<span class="w">  </span><span class="kd">companion</span><span class="w"> </span><span class="kd">object</span><span class="w"> </span><span class="err">{</span>
+
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">resolve</span><span class="p">(</span><span class="n">context</span><span class="p">:</span><span class="w"> </span><span class="n">Context</span><span class="p">):</span><span class="w"> </span><span class="n">NetworkEntryPoint</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="kd">val</span><span class="w"> </span><span class="nv">appContext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">context</span><span class="p">.</span><span class="na">applicationContext</span><span class="w"> </span><span class="o">?:</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="n">IllegalStateException</span><span class="p">(</span>
+<span class="w">        </span><span class="s">&quot;applicationContext was not found in NetworkEntryPoint&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="p">)</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">EntryPointAccessors</span><span class="p">.</span><span class="na">fromApplication</span><span class="p">(</span>
+<span class="w">        </span><span class="n">appContext</span><span class="p">,</span>
+<span class="w">        </span><span class="n">NetworkEntryPoint</span><span class="o">::</span><span class="n">class</span><span class="p">.</span><span class="na">java</span><span class="p">,</span>
+<span class="w">      </span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="2-provide-global-operator-dependency">2. Provide Global Operator Dependency<a class="headerlink" href="#2-provide-global-operator-dependency" title="Permanent link">&para;</a></h3>
+<p>Next, provide your global operator with Hilt like the exambple below:</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Module</span>
+<span class="nd">@InstallIn</span><span class="p">(</span><span class="n">SingletonComponent</span><span class="o">::</span><span class="n">class</span><span class="p">)</span>
+<span class="kd">object</span><span class="w"> </span><span class="nc">NetworkModule</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="nd">@Provides</span>
+<span class="w">  </span><span class="nd">@Singleton</span>
+<span class="w">  </span><span class="kd">fun</span><span class="w"> </span><span class="nf">provideTokenRefreshGlobalOperator</span><span class="p">(</span>
+<span class="w">    </span><span class="nd">@ApplicationContext</span><span class="w"> </span><span class="n">context</span><span class="p">:</span><span class="w"> </span><span class="n">Context</span><span class="p">,</span>
+<span class="w">    </span><span class="n">authService</span><span class="p">:</span><span class="w"> </span><span class="n">AuthService</span><span class="p">,</span>
+<span class="w">    </span><span class="n">userDataStore</span><span class="p">:</span><span class="w"> </span><span class="n">UserDataStore</span>
+<span class="w">  </span><span class="p">):</span><span class="w"> </span><span class="n">TokenRefreshGlobalOperator</span><span class="o">&lt;</span><span class="kt">Any</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">TokenRefreshGlobalOperator</span><span class="p">(</span>
+<span class="w">      </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">context</span><span class="p">,</span>
+<span class="w">      </span><span class="n">authService</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">authService</span><span class="p">,</span>
+<span class="w">      </span><span class="n">userDataStore</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">userDataStore</span><span class="p">,</span>
+<span class="w">      </span><span class="n">coroutineScope</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CoroutineScope</span><span class="p">(</span><span class="n">SupervisorJob</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Dispatchers</span><span class="p">.</span><span class="na">IO</span><span class="p">),</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="3-implement-app-startup-initializer">3. Implement App Startup Initializer<a class="headerlink" href="#3-implement-app-startup-initializer" title="Permanent link">&para;</a></h3>
+<p>Finally, implement the App Startup Initializer and initialize the Initializer following the <a href="https://developer.android.com/topic/libraries/app-startup#manual">App Startup guidance</a>.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">NetworkInitializer</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Initializer</span><span class="o">&lt;</span><span class="kt">Unit</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="nd">@set</span><span class="p">:</span><span class="n">Inject</span>
+<span class="w">  </span><span class="kd">internal</span><span class="w"> </span><span class="kd">lateinit</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">tokenRefreshGlobalOperator</span><span class="p">:</span><span class="w"> </span><span class="n">TokenRefreshGlobalOperator</span><span class="o">&lt;</span><span class="kt">Any</span><span class="o">&gt;</span>
+
+<span class="w">  </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">create</span><span class="p">(</span><span class="n">context</span><span class="p">:</span><span class="w"> </span><span class="n">Context</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">NetworkEntryPoint</span><span class="p">.</span><span class="na">resolve</span><span class="p">(</span><span class="n">context</span><span class="p">).</span><span class="na">inject</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
+
+<span class="w">    </span><span class="n">SandwichInitializer</span><span class="p">.</span><span class="na">sandwichOperators</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span><span class="n">tokenRefreshGlobalOperator</span><span class="p">)</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">dependencies</span><span class="p">():</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Class</span><span class="o">&lt;</span><span class="k">out</span><span class="w"> </span><span class="n">Initializer</span><span class="o">&lt;*&gt;&gt;&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">emptyList</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.tabs.link", "content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+    
+  </body>
+</html>
